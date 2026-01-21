@@ -1,0 +1,32 @@
+{
+  "name": "merglamunte",
+  "version": "1.0.0",
+  "description": "Verifică dacă e sigur să mergi la munte - evaluare automată a condițiilor meteo și risc",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve public",
+    "dev": "npx serve public -l 3000",
+    "update-data": "node scripts/update-avalanche.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SIG212/merglamunte.git"
+  },
+  "keywords": [
+    "munte",
+    "drumetie",
+    "meteo",
+    "avalansa",
+    "romania",
+    "carpati"
+  ],
+  "author": "SIG212",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SIG212/merglamunte/issues"
+  },
+  "homepage": "https://sig212.github.io/merglamunte",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

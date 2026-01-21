@@ -1,0 +1,122 @@
+{
+  "bucegi": {
+    "anm_peste_prag": "VARFUL OMU",
+    "anm_sub_prag": "SINAIA 1500",
+    "meteoblue_peste_prag": "bucegi-mountains_romania_683598",
+    "meteoblue_sub_prag": "45.467 25.500"
+  },
+  "fagaras": {
+    "anm_peste_prag": "BALEA LAC",
+    "anm_sub_prag": "VOINEASA",
+    "meteoblue_peste_prag": "făgăraș-mountains_romania_678498",
+    "meteoblue_sub_prag": "45.653 24.787"
+  },
+  "rodnei": {
+    "anm_peste_prag": "IEZER",
+    "anm_sub_prag": "SIGHETUL MARMATIEI",
+    "meteoblue_peste_prag": "pietrosul-rodnei_romania_8741063",
+    "meteoblue_sub_prag": "47.613 24.856"
+  },
+  "retezat": {
+    "anm_peste_prag": "PARANG",
+    "anm_sub_prag": "STRAJA",
+    "meteoblue_peste_prag": "vf.-retezat_romania_11810090",
+    "meteoblue_sub_prag": "45.372 23.064"
+  },
+  "piatra_craiului": {
+    "anm_peste_prag": "VARFUL OMU",
+    "anm_sub_prag": "PREDEAL",
+    "meteoblue_peste_prag": "piatra-craiului-mountains_romania_670901",
+    "meteoblue_sub_prag": "45.506 25.265"
+  },
+  "bistritei": {
+    "anm_peste_prag": "CALIMANI (RETITIS)",
+    "anm_sub_prag": "POIANA STAMPEI",
+    "meteoblue_peste_prag": "giumalău_romania_677132",
+    "meteoblue_sub_prag": "47.111 25.247"
+  },
+  "ceahlau": {
+    "anm_peste_prag": "CEAHLAU TOACA",
+    "anm_sub_prag": "TOPLITA",
+    "meteoblue_peste_prag": "masivul-ceahlău_romania_682481",
+    "meteoblue_sub_prag": "46.988 25.958"
+  },
+  "calimani": {
+    "anm_peste_prag": "CALIMANI (RETITIS)",
+    "anm_sub_prag": "POIANA STAMPEI",
+    "meteoblue_peste_prag": "pietrosul-călimanilor_romania_670813",
+    "meteoblue_sub_prag": "47.111 25.247"
+  },
+  "hasmas": {
+    "anm_peste_prag": "CEAHLAU TOACA",
+    "anm_sub_prag": "JOSENI",
+    "meteoblue_peste_prag": "munţii-hăşmaş_romania_676284",
+    "meteoblue_sub_prag": "46.685 25.826"
+  },
+  "maramuresului": {
+    "anm_peste_prag": "IEZER",
+    "anm_sub_prag": "SIGHETUL MARMATIEI",
+    "meteoblue_peste_prag": "hora-pip-ivan_romania_506555",
+    "meteoblue_sub_prag": " "
+  },
+  "parang_sureanu": {
+    "anm_peste_prag": "PARANG",
+    "anm_sub_prag": "STRAJA",
+    "meteoblue_peste_prag": "parâng-mountains_romania_671333",
+    "meteoblue_sub_prag": "45.387 23.482"
+  },
+  "ciucas_piatra_mare": {
+    "anm_peste_prag": "SINAIA 1500",
+    "anm_sub_prag": "PREDEAL",
+    "meteoblue_peste_prag": "45.522 25.926",
+    "meteoblue_sub_prag": "ciucas_romania_7874266"
+  },
+  "tarcu_godeanu": {
+    "anm_peste_prag": "TARCU",
+    "anm_sub_prag": "CUNTU",
+    "meteoblue_peste_prag": "muntele-Ţarcul_romania_665512",
+    "meteoblue_sub_prag": "Țarcu-mountains_romania_665513"
+  },
+  "buila": {
+    "anm_peste_prag": "VOINEASA",
+    "anm_sub_prag": "POLOVRAGI",
+    "meteoblue_peste_prag": "buila_romania_8410689",
+    "meteoblue_sub_prag": "45.238 24.132"
+  },
+  "cozia": {
+    "anm_peste_prag": "VOINEASA",
+    "anm_sub_prag": "POLOVRAGI",
+    "meteoblue_peste_prag": "cozia_romania_8260398",
+    "meteoblue_sub_prag": "45.302 24.341"
+  },
+  "iezer": {
+    "anm_peste_prag": "VARFUL OMU",
+    "anm_sub_prag": "SINAIA 1500",
+    "meteoblue_peste_prag": "munţii-iezer_romania_675717",
+    "meteoblue_sub_prag": "45.464 25.088"
+  },
+  "baiului": {
+    "anm_peste_prag": "SINAIA 1500",
+    "anm_sub_prag": "PREDEAL",
+    "meteoblue_peste_prag": "baiu-mountains_romania_685760",
+    "meteoblue_sub_prag": "45.412 25.667"
+  },
+  "cindrel": {
+    "anm_peste_prag": "PALTINIS",
+    "anm_sub_prag": "PALTINIS",
+    "meteoblue_peste_prag": "munţii-cindrel_romania_681803",
+    "meteoblue_sub_prag": "45.623 23.892"
+  },
+  "mehedinti_cernei": {
+    "anm_peste_prag": "CUNTU",
+    "anm_sub_prag": "BAILE HERCULANE",
+    "meteoblue_peste_prag": "muntii-mehedinţi_romania_673611",
+    "meteoblue_sub_prag": "45.163 22.699"
+  },
+  "apuseni": {
+    "anm_peste_prag": "VLADEASA 1800",
+    "anm_sub_prag": "BAISOARA",
+    "meteoblue_peste_prag": "apuseni-mountains_romania_686257",
+    "meteoblue_sub_prag": "băişoara_romania_685773"
+  }
+}

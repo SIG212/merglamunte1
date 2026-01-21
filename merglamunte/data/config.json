@@ -1,0 +1,66 @@
+{
+  "praguri_meteo": {
+    "temperatura": {
+      "verde": { "min": -10 },
+      "galben": { "min": -20, "max": -10 },
+      "rosu": { "max": -20 }
+    },
+    "windchill": {
+      "verde": { "min": -15 },
+      "galben": { "min": -25, "max": -15 },
+      "rosu": { "min": -35, "max": -25 },
+      "blocant": { "max": -35 }
+    },
+    "vant_kmh": {
+      "verde": { "max": 30 },
+      "galben": { "min": 30, "max": 50 },
+      "rosu": { "min": 50, "max": 80 },
+      "blocant": { "min": 80 }
+    },
+    "precipitatii_mm_h": {
+      "verde": { "max": 2 },
+      "galben": { "min": 2, "max": 5 },
+      "rosu": { "min": 5 }
+    },
+    "vizibilitate_km": {
+      "verde": { "min": 5 },
+      "galben": { "min": 1, "max": 5 },
+      "rosu": { "max": 1 }
+    },
+    "risc_avalansa": {
+      "verde": { "max": 1 },
+      "galben": { "min": 2, "max": 2 },
+      "rosu": { "min": 3, "max": 3 },
+      "blocant": { "min": 4 }
+    },
+    "zapada_cm": {
+      "verde": { "max": 30 },
+      "galben": { "min": 30, "max": 80 },
+      "rosu": { "min": 80 }
+    }
+  },
+  "sezon": {
+    "iarna": {
+      "luni": [11, 12, 1, 2, 3],
+      "sau_zapada_peste_cm": 10
+    },
+    "vara": {
+      "luni": [4, 5, 6, 7, 8, 9, 10]
+    }
+  },
+  "salvamont": {
+    "national": "0SALVAMONT (0725826668)",
+    "zone": {
+      "bucegi": { "nume": "Salvamont Prahova", "telefon": "0244-315656" },
+      "fagaras": { "nume": "Salvamont Sibiu", "telefon": "0745-815920" },
+      "retezat": { "nume": "Salvamont Hunedoara", "telefon": "0745-140850" },
+      "piatra_craiului": { "nume": "Salvamont Brașov", "telefon": "0268-471517" },
+      "rodnei": { "nume": "Salvamont Maramureș", "telefon": "0262-220076" },
+      "ceahlau": { "nume": "Salvamont Neamț", "telefon": "0744-525055" },
+      "calimani": { "nume": "Salvamont Mureș", "telefon": "0744-625905" },
+      "parang_sureanu": { "nume": "Salvamont Gorj", "telefon": "0253-214140" },
+      "apuseni": { "nume": "Salvamont Cluj", "telefon": "0745-070144" },
+      "default": { "nume": "Dispecerat Național", "telefon": "0725-826668" }
+    }
+  }
+}

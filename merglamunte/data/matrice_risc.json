@@ -1,0 +1,72 @@
+{
+  "incepator": {
+    "vara": {
+      "1": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "2": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "3": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "4": {"verde": "rosu", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"},
+      "5": {"verde": "rosu", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"}
+    },
+    "iarna": {
+      "1": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "2": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "3": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "4": {"verde": "rosu", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"},
+      "5": {"verde": "rosu", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"}
+    }
+  },
+  "mediu": {
+    "vara": {
+      "1": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "2": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "3": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "4": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "5": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"}
+    },
+    "iarna": {
+      "1": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "2": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "3": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "4": {"verde": "rosu", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"},
+      "5": {"verde": "rosu", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"}
+    }
+  },
+  "experimentat": {
+    "vara": {
+      "1": {"verde": "verde", "galben": "verde", "rosu": "verde", "blocant": "rosu"},
+      "2": {"verde": "verde", "galben": "verde", "rosu": "verde", "blocant": "rosu"},
+      "3": {"verde": "verde", "galben": "galben", "rosu": "galben", "blocant": "rosu"},
+      "4": {"verde": "verde", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "5": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"}
+    },
+    "iarna": {
+      "1": {"verde": "verde", "galben": "verde", "rosu": "verde", "blocant": "rosu"},
+      "2": {"verde": "verde", "galben": "verde", "rosu": "verde", "blocant": "rosu"},
+      "3": {"verde": "verde", "galben": "galben", "rosu": "galben", "blocant": "rosu"},
+      "4": {"verde": "galben", "galben": "galben", "rosu": "rosu", "blocant": "rosu"},
+      "5": {"verde": "galben", "galben": "rosu", "rosu": "rosu", "blocant": "rosu"}
+    }
+  },
+  "blocant_conditions": {
+    "risc_avalansa_min": 4,
+    "vant_max_kmh": 80,
+    "windchill_min": -35
+  },
+  "mesaje": {
+    "verde": {
+      "titlu": "MERGI",
+      "subtitlu": "Condiții favorabile pentru drumeție",
+      "descriere": "Condițiile sunt bune. Respectă regulile de bază și bucură-te de munte!"
+    },
+    "galben": {
+      "titlu": "AI GRIJĂ",
+      "subtitlu": "Condiții dificile pentru drumeție",
+      "descriere": "Necesită experiență și echipament complet. Evaluează constant pe teren."
+    },
+    "rosu": {
+      "titlu": "NU MERGE",
+      "subtitlu": "Condiții periculoase",
+      "descriere": "Amână drumeția pentru o zi cu condiții mai bune."
+    }
+  }
+}
