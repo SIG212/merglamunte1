@@ -1,122 +1,126 @@
-# 🏔️ MergLaMunte.ro
+# MergLaMunte.ro - API v3 cu Web Components
 
-**Verifică dacă e sigur să mergi la munte** - Sistem de evaluare automată a condițiilor pentru drumeții montane în România.
-
-![MergLaMunte Preview](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-blue)
-
-## 🎯 Ce Problemă Rezolvă
-
-Turiștii români care vor să meargă la munte se confruntă cu:
-- **Informații meteo fragmentate** - date generale, neadaptate pentru altitudine
-- **Lipsa expertizei** - majoritatea nu știu să evalueze dacă condițiile sunt sigure  
-- **Risc crescut de accidente** - Salvamont intervine în sute de cazuri/an
-- **Incertitudine** - "E sigur să merg mâine în Făgăraș?" → răspuns greu de găsit
-
-## ✅ Soluția
-
-Un sistem care îți spune direct:
-
-| Verdict | Semnificație |
-|---------|--------------|
-| 🟢 **MERGI** | Condiții favorabile |
-| 🟡 **AI GRIJĂ** | Condiții dificile, necesită experiență |
-| 🔴 **NU MERGE** | Condiții periculoase, amână drumeția |
-
-## 📊 Cum Funcționează
-
-1. **Selectezi**: masivul, data, nivelul de experiență, altitudinea țintă
-2. **Sistemul evaluează** 12 factori:
-   - Temperatură și windchill
-   - Viteză vânt
-   - Precipitații
-   - Risc avalanșă (buletin nivologic ANM)
-   - Strat zăpadă
-   - Dificultate traseu
-3. **Primești verdictul** + echipament recomandat + contact Salvamont
-
-## 🗺️ Masive Suportate
-
-- Bucegi, Făgăraș, Retezat, Piatra Craiului
-- Rodnei, Ceahlău, Călimani, Hășmaș
-- Parâng, Șureanu, Țarcu, Godeanu
-- Ciucaș, Piatra Mare, Cozia, Iezer
-- Apuseni, Cindrel, Baiului, și altele
-
-## 🛠️ Tehnologii
-
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **API Meteo**: [Meteoblue](https://www.meteoblue.com/) 
-- **Date Avalanșă**: [Buletin Nivologic ANM](https://www.meteoromania.ro)
-- **Hosting**: GitHub Pages
-
-## 🚀 Instalare Locală
-
-```bash
-# Clonează repo-ul
-git clone https://github.com/SIG212/merglamunte.git
-cd merglamunte
-
-# Instalează dependențele
-npm install
-
-# Pornește serverul local
-npm start
-# Deschide http://localhost:3000
-```
-
-## 📁 Structură Proiect
+## Structura Proiectului
 
 ```
-merglamunte/
-├── public/
-│   ├── index.html          # Pagina principală
-│   ├── css/
-│   │   └── style.css       # Stiluri
-│   └── js/
-│       ├── data.js         # Date masive, stații, matrici
-│       ├── weather.js      # API Meteoblue + avalanșă
-│       ├── risk.js         # Logica de evaluare risc
-│       └── app.js          # Aplicația principală
-├── data/
-│   ├── masive.json         # Date masive montane
-│   ├── statii_meteo.json   # Mapare stații meteo
-│   ├── matrice_risc.json   # Matrice decizie
-│   └── config.json         # Configurare praguri
-├── scripts/
-│   └── update-avalanche.js # Script actualizare date
-├── .github/
-│   └── workflows/
-│       └── deploy.yml      # GitHub Actions
-└── README.md
+v3-components/
+├── api/                          # Backend PHP
+│   ├── analiza-v3.php           # Endpoint principal
+│   ├── config/                   # Configurații
+│   │   ├── masive.php           # Date masive montane
+│   │   ├── matrice-risc.php     # Matricea de decizie
+│   │   ├── praguri-meteo.php    # Praguri pentru factori
+│   │   ├── salvamont.php        # Contacte Salvamont
+│   │   └── ...
+│   ├── services/                 # Servicii
+│   │   ├── meteo-service.php    # Fetch meteo ANM/Meteoblue
+│   │   ├── avalansa-service.php # Risc avalanșă
+│   │   ├── evaluare-meteo.php   # Evaluare 12 factori
+│   │   ├── matrice-service.php  # Aplicare matrice risc
+│   │   └── determinare-context.php
+│   └── utils/                    # Utilitare
+│       ├── helpers.php
+│       ├── validators.php
+│       ├── calcule.php
+│       └── date-helpers.php
+│
+├── components/                   # Web Components (Frontend)
+│   ├── verdict-card.js          # Card decizie GO/CAUTION/NO-GO
+│   ├── factor-list.js           # Lista factori meteo
+│   ├── meteo-details.js         # Detalii meteo
+│   ├── equipment-checklist.js   # Lista echipament
+│   ├── salvamont-contact.js     # Contact Salvamont
+│   ├── context-card.js          # Info traseu
+│   └── predictability-banner.js # Banner predictibilitate
+│
+├── form.html                     # Formular input
+├── results.html                  # Pagina rezultate (folosește components)
+└── README.md                     # Acest fișier
 ```
 
-## 🔧 Configurare API
+## Instalare
 
-### Meteoblue
-```javascript
-// În public/js/weather.js
-const METEOBLUE_API_KEY = 'your-api-key';
+1. Copiază tot folderul pe server
+2. Asigură-te că PHP 7.4+ este disponibil
+3. Configurează calea API în `results.html`:
+   ```javascript
+   const API_URL = '/calea-ta/api/analiza-v3.php';
+   ```
+
+## Folosire Web Components
+
+Componentele sunt self-contained și pot fi folosite independent:
+
+```html
+<!-- Import component -->
+<script src="components/verdict-card.js"></script>
+
+<!-- Folosire -->
+<verdict-card 
+    status="VERDE" 
+    mesaj="Condiții bune pentru drumeție"
+    nivel="mediu"
+    meteo-status="VERDE"
+    dificultate="3"
+    altitudine="2000">
+</verdict-card>
 ```
 
-### Buletin Nivologic
-Datele sunt preluate automat din repo-ul [meteo-scraper](https://github.com/SIG212/meteo-scraper).
+### Componente disponibile:
 
-## ⚠️ Disclaimer
+1. **`<verdict-card>`** - Afișează decizia finală
+   - Atribute: `status`, `mesaj`, `nivel`, `meteo-status`, `dificultate`, `altitudine`
 
-Acest instrument oferă o **evaluare orientativă**. 
-- Verifică întotdeauna mai multe surse
-- Consultă buletinul nivologic oficial
-- Ia decizii responsabile
-- În caz de urgență: **0SALVAMONT (0725-826668)**
+2. **`<factor-list>`** - Lista factorilor meteo
+   - Proprietate JS: `factors` (object)
 
-## 📄 Licență
+3. **`<meteo-details>`** - Detalii meteo
+   - Proprietate JS: `data` (object cu meteo)
 
-MIT License - vezi [LICENSE](LICENSE)
+4. **`<equipment-checklist>`** - Checklist echipament
+   - Proprietate JS: `items` (array de strings)
 
-## 🤝 Contribuții
+5. **`<salvamont-contact>`** - Contact Salvamont
+   - Proprietate JS: `data` (object cu nume, telefon, mobil)
 
-Pull requests sunt binevenite! Pentru modificări majore, deschide mai întâi un issue.
+6. **`<context-card>`** - Info traseu (doar pentru CAUTION/NO-GO)
+   - Proprietăți JS: `data` (context object), `show` (boolean)
 
----
+7. **`<predictability-banner>`** - Banner predictibilitate prognoză
+   - Proprietate JS: `data` (full API response)
 
-**Made with ❤️ for Romanian mountain lovers**
+## API Endpoint
+
+```
+GET /api/analiza-v3.php?masiv=fagaras&data=2026-01-16&nivel_experienta=mediu&altitudine_tinta=2000
+```
+
+### Parametri:
+- `masiv` - slug masiv (fagaras, bucegi, retezat, etc.)
+- `data` - YYYY-MM-DD (azi sau următoarele 7 zile)
+- `nivel_experienta` - incepator | mediu | experimentat
+- `altitudine_tinta` - 500-2700 (metri)
+
+### Răspuns:
+```json
+{
+    "success": true,
+    "masiv": "Fagaras",
+    "data": "2026-01-16",
+    "input": { ... },
+    "meteo": { ... },
+    "context": { ... },
+    "evaluare": { "factori": { ... }, "no_go_count": 0, "caution_count": 2 },
+    "decizie": { "status": "ROSU", "mesaj": "...", "cod": "ROSU" },
+    "echipament": [ ... ],
+    "salvamont": { ... }
+}
+```
+
+## Avantaje Structură Components
+
+1. **Modularitate** - Fiecare component e independent
+2. **Reutilizare** - Poți folosi componentele în alte pagini
+3. **Testare** - Fiecare component poate fi testat separat
+4. **Mentenanță** - Modifici într-un singur loc
+5. **Encapsulare** - Shadow DOM izolează stilurile

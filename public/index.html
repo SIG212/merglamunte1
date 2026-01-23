@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MergLaMunte.ro - Verifică condițiile pentru drumeție</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏔️</text></svg>">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Jost', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Factors Grid - iOS Weather Style */
+.factors-container {
+  background: linear-gradient(145deg, #475569 0%, #334155 100%);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.factors-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.factor-card {
+  background: rgba(71, 85, 105, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.factor-card-verde {
+  background: rgba(71, 85, 105, 0.6);
+}
+
+.factor-card-galben {
+  background: rgba(120, 83, 40, 0.5);
+}
+
+.factor-card-rosu,
+.factor-card-blocant {
+  background: rgba(127, 45, 45, 0.5);
+}
+
+.factor-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1rem;
+}
+
+.factor-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+}
+
+.factor-card-verde .factor-label {
+  color: #86efac;
+}
+
+.factor-card-galben .factor-label {
+  color: #fcd34d;
+}
+
+.factor-card-rosu .factor-label,
+.factor-card-blocant .factor-label {
+  color: #fca5a5;
+}
+
+.factor-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  margin: 4px 0;
+}
+
+.factor-desc {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.3;
+}
+
+/* Responsive - pe mobile, cardurile pot fi mai mici */
+@media (max-width: 400px) {
+  .factors-grid {
+    gap: 8px;
+  }
+  
+  .factor-card {
+    padding: 12px;
+    min-height: 100px;
+  }
+  
+  .factor-value {
+    font-size: 1.5rem;
+  }
+}
+        body { font-family: 'Jost', sans-serif; background: #f8fafc; }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Custom range slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-track {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #3b82f6;
+            margin-top: -8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-track {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        
+        /* ══════════════════════════════════════════════
+           VERDICT CARD - Design nou
+           ══════════════════════════════════════════════ */
+        .verdict-card {
+            border-radius: 1.25rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .verdict-card.verde {
+            background: linear-gradient(180deg, #d1fae5 0%, #ecfdf5 100%);
+            color: #065f46;
+        }
+        .verdict-card.galben {
+            background: linear-gradient(180deg, #fef9c3 0%, #fefce8 100%);
+            color: #713f12;
+        }
+        .verdict-card.rosu {
+            background: linear-gradient(180deg, #fee2e2 0%, #fef2f2 100%);
+            color: #991b1b;
+        }
+        
+        .verdict-icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 2.5rem;
+        }
+        .verde .verdict-icon-circle {
+            background: #10b981;
+            color: white;
+        }
+        .galben .verdict-icon-circle {
+            background: #E9D502;
+            color: white;
+        }
+        .rosu .verdict-icon-circle {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .verdict-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .verdict-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1.25rem;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .verdict-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .badge {
+            padding: 0.4rem 0.9rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .badge-neutral {
+            background: white;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+        .badge-info {
+            background: #3b82f6;
+            color: white;
+        }
+        .badge-success {
+            background: #10b981;
+            color: white;
+        }
+        .badge-warning {
+            background: #E9D502;
+            color: #422006;
+        }
+        .badge-danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        /* ══════════════════════════════════════════════
+           INFO CARDS
+           ══════════════════════════════════════════════ */
+        .info-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+        }
+        .info-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* ══════════════════════════════════════════════
+           FACTOR CARDS - Design nou cu bordură stânga
+           ══════════════════════════════════════════════ */
+        .factor-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid;
+            position: relative;
+        }
+        .factor-card.verde {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+        }
+        .factor-card.galben {
+            border-left-color: #E9D502;
+            background: #fefce8;
+        }
+        .factor-card.rosu {
+            border-left-color: #ef4444;
+            background: #fef2f2;
+        }
+        .factor-card.blocant {
+            border-left-color: #7c3aed;
+            background: #faf5ff;
+        }
+        
+        .factor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .factor-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .factor-badge {
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.375rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        .factor-badge.ok { background: #d1fae5; color: #065f46; }
+        .factor-badge.atentie { background: #fef9c3; color: #713f12; }
+        .factor-badge.pericol { background: #fee2e2; color: #991b1b; }
+        .factor-badge.critic { background: #ede9fe; color: #5b21b6; }
+        
+        .factor-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        .factor-description {
+            font-size: 0.85rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        .factor-details {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .factor-source {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        /* ══════════════════════════════════════════════
+           EXPAND BUTTON
+           ══════════════════════════════════════════════ */
+        .expand-btn {
+            width: 100%;
+            padding: 0.875rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        .expand-btn:hover {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .expand-btn svg {
+            transition: transform 0.2s;
+        }
+        .expand-btn.expanded svg {
+            transform: rotate(180deg);
+        }
+        
+        .factors-hidden {
+            display: none;
+        }
+        .factors-hidden.show {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        
+        /* Section Headers */
+        .section-container {
+            margin-bottom: 0;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        .section-icon {
+            font-size: 1.1rem;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+        .section-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        .factors-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        /* ══════════════════════════════════════════════
+           EQUIPMENT & EMERGENCY
+           ══════════════════════════════════════════════ */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+        @media (min-width: 480px) {
+            .equipment-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .equipment-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0.75rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .emergency-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(180deg, #fef2f2 0%, #fff 100%);
+            border-radius: 0.75rem;
+            border: 1px solid #fecaca;
+        }
+        .emergency-box .phone {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #dc2626;
+            margin: 0.5rem 0;
+        }
+        .btn-call {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.6rem 1.75rem;
+            background: #dc2626;
+            color: white;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-call:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
+        }
+        .emergency-national {
+            margin-top: 1rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        /* Recommendations */
+        .recommendations-list {
+            margin: 0;
+            padding-left: 1.25rem;
+            line-height: 1.9;
+        }
+        .recommendations-list li {
+            margin-bottom: 0.35rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+        <div class="container mx-auto px-4 py-8 max-w-2xl text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">🏔️ MergLaMunte.ro</h1>
+            <p class="text-slate-300 text-lg">Verifică dacă e sigur să mergi la munte</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-2xl">
+        
+        <!-- Form Card -->
+        <form id="mountainForm" class="bg-white rounded-2xl shadow-lg p-6 md:p-8 space-y-6">
+            
+            <!-- Masiv -->
+            <div class="space-y-2">
+                <label for="masiv" class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <span>📍</span>
+                    <span>Unde vrei să mergi?</span>
+                </label>
+                <select id="masiv" name="masiv" required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <option value="">Alege masivul...</option>
+                </select>
+            </div>
+
+            <!-- Data -->
+            <div class="space-y-2">
+                <label for="data" class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <span>📅</span>
+                    <span>Când plănuiești drumeția?</span>
+                </label>
+                <input type="date" id="data" name="data" required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+            </div>
+
+            <!-- Nivel experiență -->
+            <div class="space-y-2">
+                <label for="nivel" class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <span>🎿</span>
+                    <span>Nivel de experiență</span>
+                </label>
+                <select id="nivel" name="nivel" required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <option value="">Alege nivelul...</option>
+                    <option value="incepator">🌱 Începător - primele drumeții montane</option>
+                    <option value="mediu">🥾 Mediu - experiență moderată în munte</option>
+                    <option value="experimentat">⛰️ Experimentat - alpinist cu experiență</option>
+                </select>
+            </div>
+
+            <!-- Altitudine -->
+            <div class="space-y-3">
+                <label for="altitudine" class="flex items-center justify-between">
+                    <span class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                        <span>📏</span>
+                        <span>Altitudine țintă</span>
+                    </span>
+                    <span id="altitudine-value" class="text-lg font-bold text-blue-600">1500m</span>
+                </label>
+                <input type="range" id="altitudine" name="altitudine" 
+                    min="500" max="2500" value="1500" step="100"
+                    class="w-full h-2">
+                <div class="flex justify-between text-xs text-slate-500">
+                    <span>500m</span>
+                    <span id="prag-indicator" class="font-semibold text-amber-600"></span>
+                    <span id="max-alt">2500m</span>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" 
+                class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                Verifică Condițiile
+            </button>
+        </form>
+
+        <!-- Loading State -->
+        <div id="loading" class="hidden mt-8">
+            <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+                <div class="inline-block w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+                <p class="text-slate-600 font-medium">Se verifică condițiile meteo...</p>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results" class="hidden mt-8 space-y-4">
+            <!-- Populated by JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="container mx-auto px-4 py-6 max-w-2xl">
+            <div class="text-center text-sm text-slate-500 space-y-2">
+                <p class="flex items-center justify-center gap-2">
+                    <span>⚠️</span>
+                    <span><strong>Disclaimer:</strong> Evaluare orientativă. Verifică mai multe surse.</span>
+                </p>
+                <p class="flex items-center justify-center gap-4">
+                    <a href="https://www.meteoromania.ro" target="_blank" class="hover:text-slate-700 transition-colors">ANM</a>
+                    <span>•</span>
+                    <a href="https://www.0salvamont.ro" target="_blank" class="hover:text-slate-700 transition-colors">Salvamont</a>
+                    <span>•</span>
+                    <a href="https://github.com/SIG212/merglamunte" target="_blank" class="hover:text-slate-700 transition-colors">GitHub</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/risk.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
